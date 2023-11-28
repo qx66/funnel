@@ -52,8 +52,8 @@ submodule:
 # build
 build:
 	mkdir -p bin
-	CGO_ENABLED=0 GOOS=darwin  GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/mysql-meilisearch-mac ./main/
-	CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/mysql-meilisearch-linux ./main/
+	CGO_ENABLED=0 GOOS=darwin  GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/funnel-mac ./cmd/
+	CGO_ENABLED=0 GOOS=linux   GOARCH=amd64 go build -ldflags "-X main.Version=$(VERSION)" -o ./bin/funnel-linux ./cmd/
 
 .PHONY: generate
 # generate

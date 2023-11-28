@@ -19,6 +19,9 @@ funnel 服务将数据缓存到本地，然后批量发送到 kafka 服务中。
 
 BatchTimeout、ReadTimeout、WriteTimeout 单位为 ms.
 
+important:
+    在执行 make config 之后, 一定要将以下代码在 internal/conf/conf.pb.go 文件替换
+
 ```golang
 type Kafka struct {
 	state         protoimpl.MessageState
@@ -41,3 +44,9 @@ type Kafka struct {
     3. post form
     4. header
     5. cookie
+
+## Usage
+
+```shell
+./bin/funnel-linux -configPath=./configs/config.yaml
+```
