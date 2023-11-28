@@ -1,0 +1,9 @@
+sinks:
+  kafka:
+    batchTimeout: 3000
+    readTimeout: 1000
+    writeTimeout: 2000
+    bootstrapServer:
+      - "192.168.1.100:9092"
+  topic: "funnel"
+

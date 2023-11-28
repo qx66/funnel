@@ -2,13 +2,42 @@
 
 一个通用的埋点处理系统 (将埋点数据吞吐到Kafka)
 
-## 来源
+## 背景
 
-Openresty 收到日志，然后传到 Kafka 系统中
+大部分公司都会有类似的埋点数据收集系统
+
+### 通用做法
+
+Openresty 编写 Lua 脚本，收集对应的数据，然后传到 Kafka 系统中。 (不保证数据不丢失)
+
+### funnel
+
+funnel 是通用做法的一个替代方案，负载均衡器将请求代理到 funnel 服务中，
+funnel 服务将数据缓存到本地，然后批量发送到 kafka 服务中。
+
+## 配置
+
+BatchTimeout、ReadTimeout、WriteTimeout 单位为 ms.
+
+```golang
+type Kafka struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	BootstrapServer []string `protobuf:"bytes,1,rep,name=bootstrapServer,proto3" json:"bootstrapServer,omitempty" yaml:"bootstrapServer,omitempty"`
+	BatchTimeout    int32    `protobuf:"varint,2,opt,name=batchTimeout,proto3" json:"batchTimeout,omitempty" yaml:"batchTimeout,omitempty"`
+	ReadTimeout     int32    `protobuf:"varint,3,opt,name=readTimeout,proto3" json:"readTimeout,omitempty" yaml:"readTimeout,omitempty"`
+	WriteTimeout    int32    `protobuf:"varint,4,opt,name=writeTimeout,proto3" json:"writeTimeout,omitempty" yaml:"writeTimeout,omitempty"`
+}
+```
 
 ## 收集的数据
 
-get uri args
+收集的数据:
 
-post args
-
+    1. get query
+    2. post json
+    3. post form
+    4. header
+    5. cookie

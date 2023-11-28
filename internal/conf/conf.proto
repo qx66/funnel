@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option go_package = "funnel/internal/conf;conf";
+
+import "google/protobuf/duration.proto";
+
+message Bootstrap {
+  Sink sinks = 1;
+}
+
+message Sink {
+  Kafka kafka = 1;
+  string topic = 2;
+}
+
+message Kafka {
+  repeated string bootstrapServer = 1;
+  int32 batchTimeout = 2;
+  int32 readTimeout = 3;
+  int32 writeTimeout = 4;
+}
